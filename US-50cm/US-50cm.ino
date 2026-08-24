@@ -1,6 +1,6 @@
-const int trigPin = 5;   // Ultrasonic TRIG
-const int echoPin = 18;  // Ultrasonic ECHO
-const int ledPin  = 2;   // LED output pin
+const int trigPin = 5;   // Ultrasonic TRIG D1
+const int echoPin = 14;  // Ultrasonic ECHO D5
+const int buzzerPin  = 2;   // Buzzer output pin D4
 
 long duration;
 float distance;
@@ -8,7 +8,7 @@ float distance;
 void setup() {
   pinMode(trigPin, OUTPUT);
   pinMode(echoPin, INPUT);
-  pinMode(ledPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
 
   Serial.begin(115200);
 }
@@ -35,9 +35,9 @@ void loop() {
 
   // LED control
   if (distance <= 50) {
-    digitalWrite(ledPin, HIGH);   // LED ON
+    digitalWrite(buzzerPin, HIGH);   // LED ON
   } else {
-    digitalWrite(ledPin, LOW);    // LED OFF
+    digitalWrite(buzzerPin, LOW);    // LED OFF
   }
 
   delay(100);
