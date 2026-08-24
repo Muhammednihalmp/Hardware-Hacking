@@ -1,63 +1,55 @@
+#include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SH110X.h>
 
-// OLED setup
-#define SCREEN_WIDTH 128
-#define SCREEN_HEIGHT 64
-#define OLED_RESET -1
-Adafruit_SH1106G display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+#define TRIG 13    // D7
+#define ECHO 12    // D6
 
-// Ultrasonic pins
-const int trigPin = 5;
-const int echoPin = 18;
-
-long duration;
-float distance;
+Adafruit_SH1106G display(128, 64, &Wire, -1);
 
 void setup() {
   Serial.begin(115200);
 
-  pinMode(trigPin, OUTPUT);
-  pinMode(echoPin, INPUT);
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
 
-  // Start OLED
+  Wire.begin(4, 5);    // SDA = D2, SCk = D1
+
   display.begin(0x3C, true);
   display.clearDisplay();
-  display.setTextSize(2);
-  display.setTextColor(SH110X_WHITE);
-  display.setCursor(0, 0);
-  display.println("Ultrasonic");
-  display.println("   Ready");
   display.display();
-  delay(1000);
 }
 
 void loop() {
-  // Trigger ultrasonic pulse
-  digitalWrite(trigPin, LOW);
+
+  // Send ultrasonic pulse
+  digitalWrite(TRIG, LOW);
   delayMicroseconds(2);
 
-  digitalWrite(trigPin, HIGH);
+  digitalWrite(TRIG, HIGH);
   delayMicroseconds(10);
 
-  digitalWrite(trigPin, LOW);
+  digitalWrite(TRIG, LOW);
 
-  // Read echo pulse length
-  duration = pulseIn(echoPin, HIGH);
+  // Read echo
+  long duration = pulseIn(ECHO, HIGH);
 
-  // Convert time to distance (cm)
-  distance = duration * 0.034 / 2;
+  // Calculate distance
+  float distance = duration * 0.034 / 2;
 
+  // Serial Monitor
   Serial.print("Distance: ");
-  Serial.print(distance);
+  Serial.print(distance, 1);
   Serial.println(" cm");
 
-  // Display on OLED
+  // OLED
   display.clearDisplay();
+
+  display.setTextColor(SH110X_WHITE);
 
   display.setTextSize(1);
   display.setCursor(0, 0);
-  display.println("Ultrasonic Distance:");
+  display.println("Distance:");
 
   display.setTextSize(3);
   display.setCursor(0, 20);
