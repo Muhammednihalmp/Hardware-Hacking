@@ -2,8 +2,8 @@
 // Raise hand once  -> LED ON
 // Raise hand again -> LED OFF
 
-const int ledPin    = 2;   // LED pin
-const int sensorPin = 4;   // IR sensor output pin
+const int ledPin    = 2;   // LED pin D4
+const int sensorPin = 4;   // IR sensor output pin D2
 
 bool ledState = false;     // Current LED state (OFF initially)
 bool lastSensorState = HIGH;  // For reversed logic sensor
