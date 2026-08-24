@@ -3,8 +3,8 @@
 // Sensor active = LED OFF
 // Sensor inactive = LED ON
 
-const int ledPin    = 2;   // LED pin
-const int sensorPin = 4;   // IR sensor output pin
+const int ledPin    = 2;   // LED pin D4
+const int sensorPin = 4;   // IR sensor output pin D2
 
 void setup() {
   pinMode(ledPin, OUTPUT);
