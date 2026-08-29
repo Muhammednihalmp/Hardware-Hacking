@@ -1,5 +1,5 @@
-const int ledPin = 2;      // LED pin
-const int buttonPin = 4;   // Button pin
+const int ledPin = 2;      // LED Pin
+const int buttonPin = 4;   // Button Pin
 
 void setup() {
   pinMode(ledPin, OUTPUT);
